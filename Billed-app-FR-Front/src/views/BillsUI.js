@@ -20,16 +20,10 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+  return (data && data.length) ? data.sort((a, b) => ((a.date < b.date) ? -1 : 1)).map(bill => row(bill)).join("") : ""
 }
 
 export default ({ data: bills, loading, error }) => {
-  console.log(bills);
-  // [ BUG HUNT ] Classer par ordre décroissant grâce à une méthode sort.
-  // Inversion du retour -1 / 1 pour retourner le bon résultat.
-  if (bills && bills.length) {
-    bills.sort((a, b) => ((a.date < b.date) ? -1 : 1))
-  }
   
   const modal = () => (`
     <div class="modal fade" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

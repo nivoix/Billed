@@ -17,15 +17,26 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     e.preventDefault()
+    const inputFile = this.document.querySelector(`input[data-testid="file"]`)
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
-    formData.append('file', file)
-    formData.append('email', email)
+    // Controle des pièces jointes limitées aux png, jpg et jpeg
+    const tableau = fileName.split('.');
+    const extension = tableau.reverse()[0];
 
-    this.store
+    if(extension!=='png' || extension!=='jpg' || extension!=='jpeg'){
+        const msgFileType = this.document.createElement('p')
+        msgFileType.textContent = 'Veuillez choisir un fichier "jpg" ou "jpeg" ou "png"'
+        inputFile.insertAdjacentElement('afterend', msgFileType)
+        inputFile.value = ""
+    }else {
+      formData.append('file', file)
+      formData.append('email', email)
+    
+      this.store
       .bills()
       .create({
         data: formData,
@@ -39,6 +50,7 @@ export default class NewBill {
         this.fileUrl = fileUrl
         this.fileName = fileName
       }).catch(error => console.error(error))
+    }
   }
   handleSubmit = e => {
     e.preventDefault()
