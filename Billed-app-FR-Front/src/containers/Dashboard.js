@@ -95,8 +95,7 @@ export default class {
       $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
       $('.dashboard-right-container div').html(DashboardFormUI(bill))
       $('.vertical-navbar').css({ height: '150vh' })
-      // il faut suprimer le counter++ afin que n'importe quelle étiquette puisse être éditée
-      // this.counter ++
+      this.counter ++
     } else {
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 
@@ -147,6 +146,8 @@ export default class {
     }
 
     bills.forEach(bill => {
+      // suppression du 2e passage dans handleEditTicket pour la 1ere bill
+      $(`#open-bill${bill.id}`).off("click");
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
 
