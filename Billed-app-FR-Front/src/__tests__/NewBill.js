@@ -13,6 +13,8 @@ describe("Given I am connected as an employee", () => {
       const html = NewBillUI()
       document.body.innerHTML = html
       //to-do write assertion
+      const newBillForm = screen.getByTestId("form-new-bill");
+      expect(newBillForm).toBeTruthy();
     })
   })
 })
