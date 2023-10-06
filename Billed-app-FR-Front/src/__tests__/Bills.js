@@ -49,27 +49,6 @@ describe("Given I am connected as an employee", () => {
 			})
 			expect(await getBills()).toEqual(bills)
     })
-    /* test('Then bills should be returned with date no formated', async () => {
-			const billContainer = new Bills({ document, onNavigate, store: mockStore, localStorage: localStorageMock })
-			const getBills = jest.fn(billContainer.getBills)
-			const data = await mockStore.bills().list()
-			const bills = data.map((doc) => {
-				try {
-					return {
-						...doc,
-						date: formatDate(doc.date),
-						status: formatStatus(doc.status),
-					}
-				} catch (e) {
-					return {
-						...doc,
-						date: doc.date,
-						status: formatStatus(doc.status),
-					}
-				}
-			})
-			expect(await getBills()).toEqual(bills)
-    }) */
     test("Then bills should be ordered from earliest to latest", () => {
       document.body.innerHTML = BillsUI({ data: bills })
       const dates = screen.getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map((a) => a.innerHTML)
