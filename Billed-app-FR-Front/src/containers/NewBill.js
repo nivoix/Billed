@@ -27,15 +27,10 @@ export default class NewBill {
     const tableau = fileName.split('.');
     const extension = tableau.reverse()[0];
 
-    if(extension!=='png' || extension!=='jpg' || extension!=='jpeg'){
-        const msgFileType = this.document.createElement('p')
-        msgFileType.textContent = 'Veuillez choisir un fichier "jpg" ou "jpeg" ou "png"'
-        inputFile.insertAdjacentElement('afterend', msgFileType)
-        inputFile.value = ""
-    }else {
+    if(extension === "png" || extension === "jpg" || extension === "jpeg"){
       formData.append('file', file)
       formData.append('email', email)
-    
+  
       this.store
       .bills()
       .create({
@@ -45,16 +40,22 @@ export default class NewBill {
         }
       })
       .then(({fileUrl, key}) => {
-        console.log(fileUrl)
+        // console.log(fileUrl)
         this.billId = key
         this.fileUrl = fileUrl
         this.fileName = fileName
       }).catch(error => console.error(error))
+      
+    }else {
+      const msgFileType = this.document.createElement('p')
+      msgFileType.textContent = 'Veuillez choisir un fichier "jpg" ou "jpeg" ou "png"'
+      inputFile.insertAdjacentElement('afterend', msgFileType)
+      inputFile.value = ""
     }
   }
   handleSubmit = e => {
     e.preventDefault()
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
+    // console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
       email,
@@ -73,6 +74,7 @@ export default class NewBill {
     this.onNavigate(ROUTES_PATH['Bills'])
   }
 
+  /* istanbul ignore next */ 
   // not need to cover this function by tests
   updateBill = (bill) => {
     if (this.store) {

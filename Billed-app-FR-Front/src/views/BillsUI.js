@@ -20,6 +20,7 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
+  // trie des notes de frais
   return (data && data.length) ? data.sort((a, b) => ((new Date(a.date)< new Date(b.date)) ? 1 : -1)).map(bill => row(bill)).join("") : ""
 }
 

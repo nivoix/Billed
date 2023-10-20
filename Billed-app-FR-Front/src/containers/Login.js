@@ -34,9 +34,7 @@ export default class Login {
         PREVIOUS_LOCATION = this.PREVIOUS_LOCATION
         this.document.body.style.backgroundColor="#fff"
       })
-
   }
-
   handleSubmitAdmin = e => {
     e.preventDefault()
     const user = {
@@ -57,7 +55,7 @@ export default class Login {
         document.body.style.backgroundColor="#fff"
       })
   }
-
+  /* istanbul ignore next */ 
   // not need to cover this function by tests
   login = (user) => {
     if (this.store) {
@@ -72,7 +70,7 @@ export default class Login {
       return null
     }
   }
-
+  /* istanbul ignore next */ 
   // not need to cover this function by tests
   createUser = (user) => {
     if (this.store) {
@@ -85,7 +83,7 @@ export default class Login {
         password: user.password,
       })})
       .then(() => {
-        console.log(`User with ${user.email} is created`)
+        // console.log(`User with ${user.email} is created`)
         return this.login(user)
       })
     } else {
